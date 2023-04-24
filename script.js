@@ -18,6 +18,10 @@ function merge(left, right) {
   return [...arr, ...left, ...right];
 }
 
+function onlyUnique(value, index, array) {
+  return array.indexOf(value) === index;
+}
+
 function mergeSort(array) {
   let uniqueArray = array.filter(onlyUnique);
 
