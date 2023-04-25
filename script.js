@@ -45,7 +45,9 @@ function buildTree(array, start, end) {
   let node = nodeFactory(array[mid]);
 
   node.left = buildTree(array, start, mid - 1);
-
+  if (node.value === undefined) {
+    return null;
+  }
   node.right = buildTree(array, mid + 1, end);
   return node;
 }
