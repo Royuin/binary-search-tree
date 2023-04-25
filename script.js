@@ -52,11 +52,6 @@ function buildTree(array, start, end) {
   return node;
 }
 
-let sortedTestArray = mergeSort(testArray);
-let n = sortedTestArray.length;
-
-console.log(buildTree(sortedTestArray, 0, n));
-
 function treeFactory(array) {
   let sortedTestArray = mergeSort(array);
   let n = sortedTestArray.length;
@@ -65,5 +60,26 @@ function treeFactory(array) {
 
   return {
     root,
+    insert: function (root, value) {
+      let errorMsg = 'Oops that already exists!';
+      if (root.value === value) {
+        return console.log(errorMsg);
+      }
+
+      if (root.value > value) {
+        if (root.left === null) {
+          return (root.left = nodeFactory(value));
+        }
+        return this.insert(root.left, value);
+      }
+      if (root.value < value) {
+        if (root.right === null) {
+          return (root.right = nodeFactory(value));
+        }
+        return this.insert(root.right, value);
+      }
+    },
   };
 }
+
+const tree = treeFactory(testArray);
