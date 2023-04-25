@@ -56,3 +56,14 @@ let sortedTestArray = mergeSort(testArray);
 let n = sortedTestArray.length;
 
 console.log(buildTree(sortedTestArray, 0, n));
+
+function treeFactory(array) {
+  let sortedTestArray = mergeSort(array);
+  let n = sortedTestArray.length;
+
+  let root = buildTree(sortedTestArray, 0, n);
+
+  return {
+    root,
+  };
+}
