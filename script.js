@@ -34,6 +34,23 @@ function mergeSort(array) {
   const left = uniqueArray.splice(0, half);
   return merge(mergeSort(left), mergeSort(uniqueArray));
 }
-function buildTree(array) {
-  let root = array[Math.round(array.length / 2)];
+
+function buildTree(array, start, end) {
+  if (start > end) {
+    return null;
+  }
+  // let root = array[Math.floor((start + end) / 2)];
+  let mid = Math.floor((start + end) / 2);
+
+  let node = nodeFactory(array[mid]);
+
+  node.left = buildTree(array, start, mid - 1);
+
+  node.right = buildTree(array, mid + 1, end);
+  return node;
 }
+
+let sortedTestArray = mergeSort(testArray);
+let n = sortedTestArray.length;
+
+console.log(buildTree(sortedTestArray, 0, n));
