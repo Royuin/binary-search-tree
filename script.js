@@ -39,7 +39,7 @@ function buildTree(array, start, end) {
   if (start > end) {
     return null;
   }
-  // let root = array[Math.floor((start + end) / 2)];
+
   let mid = Math.floor((start + end) / 2);
 
   let node = nodeFactory(array[mid]);
@@ -50,6 +50,19 @@ function buildTree(array, start, end) {
   }
   node.right = buildTree(array, mid + 1, end);
   return node;
+}
+
+function deletevalue(value) {
+  root = delete (root, value);
+}
+
+function minValue(root) {
+  let minv = root.value;
+  while (root.left != null) {
+    minv = root.left.value;
+    root = root.left;
+  }
+  return minv;
 }
 
 function treeFactory(array) {
@@ -79,7 +92,25 @@ function treeFactory(array) {
         return this.insert(root.right, value);
       }
     },
+    delete: function (root, value) {
+      if (root == null) return root;
+
+      if (value < root.value) root.left = this.delete(root.left, value);
+      else if (value > root.value) root.right = this.delete(root.right, value);
+      else {
+        if (root.left == null) return root.right;
+        else if (root.right == null) return root.left;
+
+        root.value = minValue(root.right);
+
+        root.right = this.delete(root.right, root.value);
+      }
+
+      return root;
+    },
   };
 }
 
 const tree = treeFactory(testArray);
+
+console.log(tree.root);
